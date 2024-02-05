@@ -52,20 +52,25 @@ jobs:
 
   pages:
     runs-on: ubuntu-22.04
-    container: 
-      image: busybox:latest
     steps:
-      # Retrieve previous artifacts
+      # Retrieve previous artifacts and check content
       - name: Download artifacts
         uses: actions/download-artifact@v4
-
-      # Move them to the public area for sharing
-      - name: upload
-        run: mv docs/_build/html public
-      
-      # Upload files in order to generate webpage
-      - name: Upload artifacts after building
-        uses: actions/upload-artifact@v4
         with:
-          name: docpage
-          path: public
+          name: builtDocs
+      - name: Show content
+        run: ls -R
+    
+    #container: 
+    #  image: busybox:latest
+    #  
+    #  # Move them to the public area for sharing
+    #  - name: upload
+    #    run: mv html public
+    #  
+    #  # Upload files in order to generate webpage
+    #  - name: Upload artifacts after building
+    #    uses: actions/upload-artifact@v4
+    #    with:
+    #      name: docpage
+    #      path: public
