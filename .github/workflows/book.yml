@@ -41,3 +41,33 @@ jobs:
       # Compile the documentation
       - name: Building documentation
         run: jupyter-book build docs/
+
+      # Upload artifacts
+      - name: Upload artifacts after building
+        uses: actions/upload-artifact@v4
+        with:
+          name: docs
+          path: _build/
+          retention-days: 1
+
+  pages:
+    runs-on: ubuntu-22.04
+    container: 
+      image: busybox:latest
+    steps:
+      # Retrieve previous artifacts
+      - name: Download artifacts
+        uses: actions/download-artifact@v4
+        with:
+          name: docs
+
+      # Move them to the public area for sharing
+      - name: upload
+        run: mv _build/html public
+      
+      # Upload files in order to generate webpage
+      - name: Upload artifacts after building
+        uses: actions/upload-artifact@v4
+        with:
+          name: docpage
+          path: public
