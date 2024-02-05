@@ -44,38 +44,31 @@ jobs:
       - name: Building documentation
         run: jupyter-book build docs/
 
+      # Configure pages
+      - name: Setup pages
+        id: pages
+        uses: actions/configure-pages@v3
+      - name: Build with Jekyll
+        uses: actions/jekyll-build-pages@v1
+        with:
+          source: ./
+          destination: ./_site    
+  
       # Upload artifacts
       - name: Upload artifacts after building
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-pages-artifact@v2
         with:
           name: builtDocs
           path: docs/_build/
           retention-days: 1
 
-  pages:
-    name: Publish guide online
-    needs: buildjob
+  deploy:
+    environment:
+      name: github-pages
+      url: ${{steps.deployment.outputs.page-url}}
     runs-on: ubuntu-22.04
+    needs: buildjob
     steps:
-      # Retrieve previous artifacts and check content
-      - name: Download artifacts
-        uses: actions/download-artifact@v4
-        with:
-          name: builtDocs
-
-      - name: Show content
-        run: ls -R
-    
-    #container: 
-    #  image: busybox:latest
-    #  
-    #  # Move them to the public area for sharing
-    #  - name: upload
-    #    run: mv html public
-    #  
-    #  # Upload files in order to generate webpage
-    #  - name: Upload artifacts after building
-    #    uses: actions/upload-artifact@v4
-    #    with:
-    #      name: docpage
-    #      path: public
+      - name: Deploy to Github Pages
+        id: deployment
+        uses: actions/deploy-pages@v2
