@@ -42,7 +42,7 @@ jobs:
   
       # Compile the documentation
       - name: Building documentation
-        run: jupyter-book build docs/
+        run: jupyter-book build --path-output . docs/
 
       # Configure pages
       - name: Setup pages
@@ -51,7 +51,7 @@ jobs:
       - name: Build with Jekyll
         uses: actions/jekyll-build-pages@v1
         with:
-          source: ./
+          source: ./_build
           destination: ./_site    
   
       # Upload artifacts
