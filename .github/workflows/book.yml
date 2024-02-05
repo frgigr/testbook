@@ -44,7 +44,7 @@ jobs:
 
       # Upload artifacts
       - name: Upload artifacts after building
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v3
         with:
           name: builtDocs
           path: docs/_build/
@@ -55,7 +55,9 @@ jobs:
     steps:
       # Retrieve previous artifacts and check content
       - name: Download artifacts
-        uses: actions/download-artifact@v4
+        uses: actions/download-artifact@v3
+        with:
+          name: builtDocs.zip
 
       - name: Show content
         run: ls -R
