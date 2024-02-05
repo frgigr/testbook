@@ -56,8 +56,7 @@ jobs:
       # Retrieve previous artifacts and check content
       - name: Download artifacts
         uses: actions/download-artifact@v4
-        with:
-          name: builtDocs
+
       - name: Show content
         run: ls -R
     
