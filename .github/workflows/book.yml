@@ -15,7 +15,9 @@ on:
 # List of one or more jobs that can run sequentially or in parallel
 jobs:
   # Build step
-  build:
+  buildjob:
+    name: Building documentation
+    
     # Select ubuntu, LTS version
     runs-on: ubuntu-22.04
 
@@ -51,12 +53,13 @@ jobs:
           retention-days: 1
 
   pages:
-    needs: build
+    name: Publish guide online
+    needs: buildjob
     runs-on: ubuntu-22.04
     steps:
       # Retrieve previous artifacts and check content
       - name: Download artifacts
-        uses: actions/download-artifact@v3
+        uses: actions/download-artifact@v4
         with:
           name: builtDocs
 
