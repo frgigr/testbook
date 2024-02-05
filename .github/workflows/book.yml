@@ -56,11 +56,9 @@ jobs:
   
       # Upload artifacts
       - name: Upload artifacts after building
-        uses: actions/upload-pages-artifact@v2
+        uses: actions/upload-pages-artifact@v2.0.0
         with:
-          name: builtDocs
           path: docs/_build/
-          retention-days: 1
 
   deploy:
     permissions:
@@ -71,8 +69,8 @@ jobs:
     needs: buildjob
     environment:
       name: github-pages
-      url: ${{steps.deployment.outputs.page_url}}
+      url: ${{ steps.deployment.outputs.page_url }}
     steps:
       - name: Deploy to Github Pages
         id: deployment
-        uses: actions/deploy-pages@v2
+        uses: actions/deploy-pages@v3
