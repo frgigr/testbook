@@ -44,20 +44,21 @@ jobs:
 
       # Upload artifacts
       - name: Upload artifacts after building
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         with:
           name: builtDocs
           path: docs/_build/
           retention-days: 1
 
   pages:
+    needs: build
     runs-on: ubuntu-22.04
     steps:
       # Retrieve previous artifacts and check content
       - name: Download artifacts
         uses: actions/download-artifact@v3
         with:
-          name: builtDocs.zip
+          name: builtDocs
 
       - name: Show content
         run: ls -R
