@@ -46,8 +46,8 @@ jobs:
       - name: Upload artifacts after building
         uses: actions/upload-artifact@v4
         with:
-          name: docs
-          path: _build/
+          name: builtDocs
+          path: docs/_build/
           retention-days: 1
 
   pages:
@@ -58,12 +58,10 @@ jobs:
       # Retrieve previous artifacts
       - name: Download artifacts
         uses: actions/download-artifact@v4
-        with:
-          name: docs
 
       # Move them to the public area for sharing
       - name: upload
-        run: mv _build/html public
+        run: mv docs/_build/html public
       
       # Upload files in order to generate webpage
       - name: Upload artifacts after building
