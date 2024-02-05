@@ -34,13 +34,10 @@ jobs:
       - name: Display python version
         run: python -c "import sys; print(sys.version)"
 
-      # Install extra packages
+      # Install jupyter book package
       - name: Install additional packages
-        run: |
-          pip install jupyter-book
-          pip install docutils==0.17.1
-
+        run: pip install jupyter-book
+  
       # Compile the documentation
       - name: Building documentation
         run: jupyter-book build docs/
-        
