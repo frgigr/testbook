@@ -51,14 +51,14 @@ jobs:
       - name: Build with Jekyll
         uses: actions/jekyll-build-pages@v1
         with:
-          source: ./_build
+          source: ./_build/html
           destination: ./_site    
   
       # Upload artifacts
       - name: Upload artifacts after building
         uses: actions/upload-pages-artifact@v2
         with:
-          path: _build/
+          path: _build/html
 
   deploy:
     permissions:
