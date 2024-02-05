@@ -1,5 +1,5 @@
-# Basic workflow to get started with Actions
-name: JupyterBook
+# Basic workflow to build and publish book
+name: UserGuideDocumentation
 
 # Controls when the workflow will run
 on:
@@ -16,8 +16,8 @@ on:
 jobs:
   # Build step
   buildjob:
-    name: Building documentation
-    
+    name: Building Documentation
+
     # Select ubuntu, LTS version
     runs-on: ubuntu-22.04
 
@@ -39,7 +39,7 @@ jobs:
       # Install jupyter book package
       - name: Install additional packages
         run: pip install jupyter-book
-  
+
       # Compile the documentation
       - name: Building documentation
         run: jupyter-book build --path-output . docs/
@@ -52,8 +52,8 @@ jobs:
         uses: actions/jekyll-build-pages@v1
         with:
           source: ./_build/html
-          destination: ./_site    
-  
+          destination: ./_site
+
       # Upload artifacts
       - name: Upload artifacts after building
         uses: actions/upload-pages-artifact@v2
@@ -61,16 +61,27 @@ jobs:
           path: _build/html
 
   deploy:
+    name: Deploy to Github Pages
+
+    # Assign permissions to the job
     permissions:
       contents: read
       pages: write
       id-token: write
+
+    # Moving to ubuntu latest as everything is already built
     runs-on: ubuntu-latest
+
+    # Setting dependency
     needs: buildjob
+
+    # Extra (default) settings to enforce branch/deployment protection rules.
     environment:
       name: github-pages
       url: ${{ steps.deployment.outputs.page_url }}
+
+    # Finally deploying everything
     steps:
-      - name: Deploy to Github Pages
+      - name: Deploy artifact
         id: deployment
         uses: actions/deploy-pages@v3
