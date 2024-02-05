@@ -1,5 +1,4 @@
-# This is a basic workflow to help you get started with Actions
-
+# Basic workflow to get started with Actions
 name: JupyterBook
 
 # Controls when the workflow will run
@@ -13,22 +12,35 @@ on:
   # Allows you to run this workflow manually from the Actions tab
   workflow_dispatch:
 
-# A workflow run is made up of one or more jobs that can run sequentially or in parallel
+# List of one or more jobs that can run sequentially or in parallel
 jobs:
-  # This workflow contains a single job called "build"
+  # Build step
   build:
-    # The type of runner that the job will run on
+    # Select ubuntu, LTS version
     runs-on: ubuntu-22.04
 
-    # Steps represent a sequence of tasks that will be executed as part of the job
+    # Full sequence of tasks being executed as part of the job
     steps:
       # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
       - uses: actions/checkout@v4
 
-      # Setup python
+      # Setup python 3.10
       - name: Python 3 setup
         uses: actions/setup-python@v5
         with:
           python-version: '3.10'
+
+      # Verify the installation is complete, with no issues
       - name: Display python version
         run: python -c "import sys; print(sys.version)"
+
+      # Install extra packages
+      - name: Install additional packages
+        run: |
+          pip install jupyter-book
+          pip install docutils==0.17.1
+
+      # Compile the documentation
+      - name: Building documentation
+        run: jupyter-book build docs/
+        
