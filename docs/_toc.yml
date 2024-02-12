@@ -3,4 +3,7 @@
 format: jb-book
 root: sections/intro
 chapters:
-- file: sections/configuration
+- file: sections/infrastructure
+- file: sections/access
+- file: sections/usage
+- file: sections/troubleshooting
