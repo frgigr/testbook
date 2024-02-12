@@ -1,5 +1,5 @@
 # Basic workflow to build and publish book
-name: UserGuideDocumentation
+name: Documentation
 
 # Controls when the workflow will run
 on:
@@ -18,7 +18,7 @@ jobs:
   buildjob:
     name: Building Documentation
 
-    # Select ubuntu, LTS version
+    # Select ubuntu: LTS versions should be preferred
     runs-on: ubuntu-22.04
 
     # Full sequence of tasks being executed as part of the job
@@ -26,7 +26,7 @@ jobs:
       # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
       - uses: actions/checkout@v4
 
-      # Setup python 3.10
+      # Setup python 3.10. Not mandatory to use this version, but it is the one available in ubuntu 22.04
       - name: Python 3 setup
         uses: actions/setup-python@v5
         with:
