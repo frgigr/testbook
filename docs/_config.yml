@@ -1,7 +1,7 @@
 # Book settings
 
-title: WP5docs
-author: Francesco Giuseppe Gravili
+title: HighRatePlatformDocumentation
+author: WP2 and WP5 Communities
 logo: "icsc.png"
 copyright: "2024"
 
@@ -24,8 +24,9 @@ repository:
   url: https://github.com/frgigr/testbook
   branch: main
 
-    # Add repository buttons to your book: issues not supported by GitLab
+# Add repository buttons to your book: remember, issues are not supported by GitLab
 html:
-  use_issues_button: false
-  use_repository_button: false
-  announcement: "Version 0.1"
+  announcement: "Alpha Version 0.1"
+  home_page_in_navbar: false
+  use_issues_button: true
+  use_repository_button: true
